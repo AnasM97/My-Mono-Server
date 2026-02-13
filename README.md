@@ -19,3 +19,7 @@
 - User -> Nginx -> Flask
 - This is known as a reverse proxy.
   - A server that receives requests and forwards them to another internal server.
+- A way to test the configuration before restarting is sudo nginx -t and the response it should give is config syntax is ok + test is successful.
+-  Now that I am running http://Public-Server-IP and it leads straight into the flask program.
+
+  ### Adding a Database
