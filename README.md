@@ -11,23 +11,19 @@
 - Initially, I attempted to install python and then install flask but I could not do that and the reason was due to version clash as the Python Ubuntu uses is locked
 - This is because core system features depend on a specific Python version so updating it would break those features
 - Therefore the OS manager prevents the replacement of that Python Version
-- The solution I used was Virtual Environment 
-- 
+- The solution I used was creating a Virtual Environment with its own Python version that would not clash with the OS' Python
 
+#### Flask
+- After creating my virtual environment I was able to now install flask
+- I then created a file named app.py where my application code is going to be stored
+- I also needed to create a new security group with port 5000 that could be connected from anywhere
+- A mistake I made with flask is that I had to run flask without stopping it as I kept on stopping it not knowing that by doing that my server connected to the browser simply would not connect
 
-
-- To get into the virtual environment python in my directory is source/venv/bin/activate
-
-### Flask
-
-
-
-
-## Running Nginx
+### Running Nginx
 - When I initally wanted to start nginx after installing it, I had an error where [Warning: The unit file, source configuration file or drop-ins of nginx.service changed on disk.].
 -  systemd(Linux Service Manager) warned that its service configuration file had changed.
 - Running systemctl daemon-reload refreshes systemd’s knowledge of service definitions(A configuration file that tells Linux how to run a background program.) so it can properly start nginx.
-- Started nginz and enbabled it to make it active such that when I go to http://Public-Server-IP, I recieved a welcome to nginx page.
+- Started nginx and enbabled it to make it active such that when I go to http://Public-Server-IP, I recieved a welcome to nginx page.
 - Editing nginx config files from showing a staticl HTML file in a folder to the page from my flask program. 
 - What occurs from the change is that whenever someone visits the server, its going to forward a request to my flask app running locally on port 5000
 - Flask runs inside my server on port 5000 and is not meant to be exposed direcly to the internet whereas Nginx is more secure and faster for production use and runs on port 80(Standard web port for HTTP web traffic) and therefore optimised for handling internet traffic. 
@@ -56,8 +52,54 @@
 - sudo apt install python3 python3-venv
 - python3 -m venv venv
 - source/venv/bin/activate
+- pip3 install flask
+- nano app.py
+  - from flask import Flask
+  - app = Flask(__name__)
+  - @app.route("/")
+  - def home():
+    return "Hello from my MONOLITHIC app running on EC2!"
+  - if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+- python3 app.py
+- sudo apt install nginx -y
+- systemctl daemon-reload
+- sudo systemctl start nginx
+- sudo systemctl enable nginx
+- systemctl status nginx
+- sudo nano /etc/nginx/nginx.conf
+  - location / {
+    proxy_pass http://127.0.0.1:5000;#
+  }
+- sudo apt install sqlite3 -y
+  - from flask import Flask
+  - import sqlite3
+  - app = Flask(__name__)
+  
+  - @app.route("/")
+  - def home():
+        - conn = sqlite3.connect("visits.db")
+        - cur = conn.cursor()
+        - cur.execute("CREATE TABLE IF NOT EXISTS counter (count INTEGER)")
+        - cur.execute("SELECT count FROM counter")
+        - row = cur.fetchone()
+  
+        if row is None:
+            cur.execute("INSERT INTO counter VALUES (1)")
+            count = 1
+        else:
+            count = row[0] + 1
+            cur.execute("UPDATE counter SET count = ?", (count,))
+  
+        conn.commit()
+        conn.close()
+  
+        return f"Hello! This page has been visited {count} times."
+  
+    if __name__ == "__main__":
+        app.run(host="0.0.0.0", port=5000)
 
-
+- 
 
 
 
