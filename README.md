@@ -99,16 +99,7 @@
 
 - if __name__ == "__main__":
     - app.run(host="0.0.0.0", port=5000)
-
-
-
-
-
-
-
-
-
-
+- python3 app.py
 
 
 ### Keywords I Learnt
@@ -116,5 +107,7 @@
 - HyperText Transfer Protocol(HTTP) : It’s the system that allows your web browser and web servers to communicate and is not secured with encryption, Port 80.
 - Virtual Environments : An isolated, self-contained directory that contains its own Python interpreter and installed packages, allowing a project to manage its dependencies independently from other projects and the system-wide Python installation.
 - Flask : A lightweight web framework for Python used to build web applications and APIs, Port 5000.
+- NGINX: A high-performance web server, reverse proxy, and load balancer that efficiently serves web content, manages traffic, and distributes requests across multiple servers.
+- Load Balancer : A system that distributes incoming network or application traffic across multiple servers to ensure no single server gets overloaded.
 - Reverse Proxy : A server that sits in front of your backend servers and handles incoming requests before they reach your application.
 - 
