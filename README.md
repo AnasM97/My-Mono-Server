@@ -72,34 +72,34 @@
     proxy_pass http://127.0.0.1:5000;#
   }
 - sudo apt install sqlite3 -y
-  - from flask import Flask
-  - import sqlite3
-  - app = Flask(__name__)
-  
-  - @app.route("/")
-  - def home():
-        conn = sqlite3.connect("visits.db")
-        cur = conn.cursor()
-        cur.execute("CREATE TABLE IF NOT EXISTS counter (count INTEGER)")
-        cur.execute("SELECT count FROM counter")
-        row = cur.fetchone()
-  
-        if row is None:
-            cur.execute("INSERT INTO counter VALUES (1)")
-            count = 1
-        else:
-            count = row[0] + 1
-            cur.execute("UPDATE counter SET count = ?", (count,))
-  
-        conn.commit()
-        conn.close()
-  
-        return f"Hello! This page has been visited {count} times."
-  
-    if __name__ == "__main__":
-        app.run(host="0.0.0.0", port=5000)
+- from flask import Flask
+- import sqlite3
 
-- 
+- app = Flask(__name__)
+
+- @app.route("/")
+- def home():
+    - conn = sqlite3.connect("visits.db")
+    - cur = conn.cursor()
+    - cur.execute("CREATE TABLE IF NOT EXISTS counter (count INTEGER)")
+    - cur.execute("SELECT count FROM counter")
+    - row = cur.fetchone()
+
+    - if row is None:
+        - cur.execute("INSERT INTO counter VALUES (1)")
+        - count = 1
+    - else:
+        - count = row[0] + 1
+        - cur.execute("UPDATE counter SET count = ?", (count,))
+
+    - conn.commit()
+    - conn.close()
+
+    - return f"Hello! This page has been visited {count} times."
+
+- if __name__ == "__main__":
+    - app.run(host="0.0.0.0", port=5000)
+
 
 
 
