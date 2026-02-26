@@ -1,5 +1,21 @@
 # My-Mono-Server
 
+
+### Creating an EC2 Instance and Installing Python inside the Server
+- When to EC2 and created an instance
+- Made my AMI(Amazon Machine Image) ubuntu and my instance type t3.micro
+- I allowed SSH and HTTP Traffic from anywhere(0.0.0.0) aswell
+- I went to my ssh folder on VS Code in the terminal and then ssh into my EC2 Instance
+- I updated and upgraded the packages inside ubuntu
+- I proceeded to make a new folder and change directory to that folder named myapp which is where my application is going to be stored
+- Initially, I attempted to install python and then install flask but I could not do that and the reason was due to version clash as the Python Ubuntu uses is locked
+- This is because core system features depend on a specific Python version so updating it would break those features
+- Therefore the OS manager prevents the replacement of that Python Version
+- The solution I used was Virtual Environment 
+- 
+
+
+
 - To get into the virtual environment python in my directory is source/venv/bin/activate
 
 ### Flask
@@ -30,11 +46,16 @@
 
 
 ## Commands Used
+- cd
+- cd .ssh
+- ssh -i "my-key-pair" ubuntu@mono-ip
 - sudo apt update
 - sudo apt upgrade -y
 - mkdir myapp
 - cd myapp
-- 
+- sudo apt install python3 python3-venv
+- python3 -m venv venv
+- source/venv/bin/activate
 
 
 
@@ -49,4 +70,9 @@
 
 
 ### Keywords I Learnt
+- Secure Shell(SSH) : A way to securely connect to another computer over a network and control it using the command line, Port 22.
+- HyperText Transfer Protocol(HTTP) : It’s the system that allows your web browser and web servers to communicate and is not secured with encryption, Port 80.
+- Virtual Environments : An isolated, self-contained directory that contains its own Python interpreter and installed packages, allowing a project to manage its dependencies independently from other projects and the system-wide Python installation.
+- Flask : A lightweight web framework for Python used to build web applications and APIs, Port 5000.
+- Reverse Proxy : A server that sits in front of your backend servers and handles incoming requests before they reach your application.
 - 
