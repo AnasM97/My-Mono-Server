@@ -78,11 +78,11 @@
   
   - @app.route("/")
   - def home():
-        - conn = sqlite3.connect("visits.db")
-        - cur = conn.cursor()
-        - cur.execute("CREATE TABLE IF NOT EXISTS counter (count INTEGER)")
-        - cur.execute("SELECT count FROM counter")
-        - row = cur.fetchone()
+        conn = sqlite3.connect("visits.db")
+        cur = conn.cursor()
+        cur.execute("CREATE TABLE IF NOT EXISTS counter (count INTEGER)")
+        cur.execute("SELECT count FROM counter")
+        row = cur.fetchone()
   
         if row is None:
             cur.execute("INSERT INTO counter VALUES (1)")
